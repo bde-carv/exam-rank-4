@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <sys/wait.h>
 
 int	ft_strlen(char *s)
@@ -34,19 +33,15 @@ int	main(int argc, char **argv, char **envp)
 	while(argv[i])
 	{
 		i++;
-		while (argv[i] && argv[i][0] == ';' && argv[i][0] == '|')
+		while (argv[i] && argv[i][0] == ';')
 			i++;
 		if (!argv[i])
 			break;
 		if (strcmp(argv[i], "cd") == 0)
 		{
 			cmd = i;
-			while (argv[i] && argv[i][0] != ';' && argv[i][0] != '|')
-			{
-				printf("i: %c\n", argv[i][0]);
+			while (argv[i] && argv[i][0] != ';')
 				i++;
-			}
-				
 			if (i - cmd != 2)
 				ft_write("error: cd: bad arguments", "");
 			else if (chdir(argv[cmd + 1]) == -1)
